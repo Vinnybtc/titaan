@@ -1,13 +1,24 @@
 @import "tailwindcss";
 
+/* ==========================================
+   TITAAN DESIGN SYSTEM
+   ========================================== */
+
 @theme inline {
-  --color-green-950: #0a1f0a;
-  --color-green-900: #122412;
-  --color-green-800: #1a3a1a;
-  --color-gold: #c8a45c;
-  --color-gold-light: #d4b876;
-  --color-gold-dark: #b08d3e;
+  /* Core palette */
+  --color-green-950: #071207;
+  --color-green-900: #0c1a0c;
+  --color-green-800: #132113;
+  --color-green-700: #1a2e1a;
+  --color-gold: #c9a84c;
+  --color-gold-light: #dbbf6e;
+  --color-gold-dark: #a8893a;
+  --color-gold-muted: rgba(201, 168, 76, 0.12);
 }
+
+/* ==========================================
+   FONTS
+   ========================================== */
 
 @font-face {
   font-family: "Playfair Display";
@@ -36,6 +47,10 @@
     format("woff2");
 }
 
+/* ==========================================
+   BASE STYLES
+   ========================================== */
+
 * {
   margin: 0;
   padding: 0;
@@ -48,43 +63,56 @@ html {
 
 body {
   font-family: "Inter", sans-serif;
-  background: #0a1f0a;
+  background: #071207;
   color: #ffffff;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: "Playfair Display", serif;
+  letter-spacing: -0.01em;
 }
 
-/* Custom scrollbar */
+/* ==========================================
+   SCROLLBAR
+   ========================================== */
+
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a1f0a;
+  background: #071207;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c8a45c;
-  border-radius: 4px;
+  background: rgba(201, 168, 76, 0.4);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d4b876;
+  background: rgba(201, 168, 76, 0.7);
 }
 
-/* Animation keyframes */
+/* ==========================================
+   SELECTION
+   ========================================== */
+
+::selection {
+  background: rgba(201, 168, 76, 0.3);
+  color: #ffffff;
+}
+
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -93,33 +121,120 @@ h6 {
 }
 
 @keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
   from {
     opacity: 0;
+    transform: translateX(-30px);
   }
   to {
     opacity: 1;
+    transform: translateX(0);
   }
 }
 
+@keyframes expandWidth {
+  from { width: 0; }
+  to { width: 4rem; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
 .animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
+  animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-fade-in {
-  animation: fadeIn 1s ease-out forwards;
+  animation: fadeIn 1.2s ease-out forwards;
 }
 
-.animate-delay-200 {
-  animation-delay: 0.2s;
-  opacity: 0;
+.animate-slide-in-left {
+  animation: slideInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-delay-400 {
-  animation-delay: 0.4s;
-  opacity: 0;
+.animate-delay-100 { animation-delay: 0.1s; opacity: 0; }
+.animate-delay-200 { animation-delay: 0.2s; opacity: 0; }
+.animate-delay-300 { animation-delay: 0.3s; opacity: 0; }
+.animate-delay-400 { animation-delay: 0.4s; opacity: 0; }
+.animate-delay-500 { animation-delay: 0.5s; opacity: 0; }
+.animate-delay-600 { animation-delay: 0.6s; opacity: 0; }
+.animate-delay-700 { animation-delay: 0.7s; opacity: 0; }
+
+/* ==========================================
+   UTILITY CLASSES
+   ========================================== */
+
+.glass {
+  background: rgba(7, 18, 7, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.animate-delay-600 {
-  animation-delay: 0.6s;
-  opacity: 0;
+.glass-gold {
+  background: rgba(201, 168, 76, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #dbbf6e, #c9a84c, #a8893a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-noise {
+  position: relative;
+}
+
+.bg-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.2), transparent);
+}
+
+/* ==========================================
+   FORM FOCUS STATES
+   ========================================== */
+
+input:focus,
+textarea:focus {
+  border-color: rgba(201, 168, 76, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.08);
+  outline: none;
+}
+
+/* ==========================================
+   SMOOTH TRANSITIONS FOR ALL INTERACTIVE ELEMENTS
+   ========================================== */
+
+a, button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

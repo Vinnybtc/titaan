@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useInView } from "@/hooks/useAnimations";
 
 interface Stat {
   value: number;
@@ -27,8 +28,8 @@ function AnimatedCounter({
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated.current) {
           hasAnimated.current = true;
-          const duration = 2000;
-          const steps = 60;
+          const duration = 2200;
+          const steps = 80;
           const increment = value / steps;
           let current = 0;
           const timer = setInterval(() => {
@@ -44,16 +45,13 @@ function AnimatedCounter({
       },
       { threshold: 0.5 }
     );
-
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, [value]);
 
   return (
-    <span ref={ref} className="text-4xl md:text-5xl font-light text-green-950">
-      {prefix}
-      {count}
-      {suffix}
+    <span ref={ref} className="text-5xl md:text-6xl font-light text-gradient-gold tabular-nums">
+      {prefix}{count}{suffix}
     </span>
   );
 }
@@ -63,24 +61,38 @@ interface StatsBarProps {
 }
 
 export default function StatsBar({ stats }: StatsBarProps) {
+  const { ref, inView } = useInView(0.3);
+
   return (
-    <section className="bg-white py-16 md:py-20">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="relative py-20 md:py-28 bg-green-950 bg-noise overflow-hidden" ref={ref}>
+      <div className="section-divider" />
+
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] opacity-[0.04] pointer-events-none"
+        style={{ background: "radial-gradient(ellipse, #c9a84c, transparent 70%)" }}
+      />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
           {stats.map((stat, i) => (
-            <div key={i} className="text-center">
-              <AnimatedCounter
-                value={stat.value}
-                prefix={stat.prefix}
-                suffix={stat.suffix}
-              />
-              <p className="mt-3 text-green-800/60 text-xs tracking-[0.3em] uppercase">
+            <div
+              key={i}
+              className={`text-center transition-all duration-700 ${
+                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+              style={{ transitionDelay: `${i * 0.15}s` }}
+            >
+              <AnimatedCounter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
+              <div className="w-8 h-[1px] bg-gold/20 mx-auto my-4" />
+              <p className="text-white/35 text-[11px] tracking-[0.3em] uppercase font-medium">
                 {stat.label}
               </p>
             </div>
           ))}
         </div>
       </div>
+
+      <div className="section-divider mt-20 md:mt-28" />
     </section>
   );
 }
