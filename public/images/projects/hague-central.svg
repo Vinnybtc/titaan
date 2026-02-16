@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <rect fill="#1a3a1a" width="800" height="600"/>
+  <rect fill="#122412" x="200" y="150" width="400" height="350" rx="4"/>
+  <rect fill="#0d1a0d" x="220" y="170" width="160" height="120" rx="2"/>
+  <rect fill="#0d1a0d" x="420" y="170" width="160" height="120" rx="2"/>
+  <rect fill="#0d1a0d" x="220" y="310" width="360" height="80" rx="2"/>
+  <rect fill="#c8a45c" opacity="0.2" x="300" y="420" width="200" height="80" rx="2"/>
+  <text x="400" y="560" font-family="serif" font-size="18" fill="#c8a45c" text-anchor="middle" opacity="0.6">The Hague Central</text>
+</svg>
